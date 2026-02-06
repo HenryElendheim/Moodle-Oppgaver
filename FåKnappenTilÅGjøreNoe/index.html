@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 1: Del 5 JS</title>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+
+
+
+
+    <script>
+        const html = document.getElementById("app");
+        let name = "Terje"
+
+
+
+
+
+        function updateView() {
+            html.innerHTML = /*HTML*/ `
+                
+                Put your name here: <input onchange="nameChange(this.value)">
+                <button onclick="textChange()">Submit your name</button>
+                <div id="textDiv">I don't know your name yet</div>
+        `
+        }
+        updateView()
+
+        function textChange() {
+            textDiv.innerHTML = `Your name is ${name}`
+        }
+
+        function nameChange(updatedName) {
+            name = updatedName;
+        }
+    </script>
+
+
+
+</body>
+
+</html>

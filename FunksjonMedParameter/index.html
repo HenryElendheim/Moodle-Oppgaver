@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funksjon Med Parameter</title>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+    
+
+    <script>
+        const html = document.getElementById("app");
+
+        function updateView() {
+            html.innerHTML = /*HTML*/ `
+                
+            <button onclick="changeColor('red',100,100)">red</button>
+            <button onclick="changeColor('blue',100,200)">blue</button>
+            <br>
+            <p>Write any color you want:</p>
+            <input id="customColor" onchange="changeColor(this.value,100,100)">
+            <br>
+            <br>
+            <div id="bgColor"></div>
+                
+        `
+        }
+        updateView()
+
+        
+
+        function changeColor(newcolor,width,height,) {
+            bgColor.innerHTML = /*html*/ `
+            <div style="background-color: ${newcolor}; width: ${width}%; height: ${height}px;"></div>
+            `
+            console.log("Color changed")
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>

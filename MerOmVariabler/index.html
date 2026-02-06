@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mer Om Variabler</title>
+</head>
+
+<body>
+    <script>
+        const test1 = "Hei (const)";
+        let test2 = "Hei (let)";
+        var test3 = "Hei (var)";
+
+        function testVariables() {
+            var hello = "Hello (var)";
+            var hello2 = "Hello (let)";
+
+
+            console.log(hello, hello2);
+
+            {
+                var yo = "Yo (var in object)";
+                let yo2 = "Yo (let in object)";
+            }
+
+
+            console.log(yo);
+            console.log(yo2);
+        }
+        testVariables();
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visuell Teller</title>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+
+    <script>
+        const html = document.getElementById("app");
+        let number = 0;
+
+        updateView()
+        function updateView() {
+            html.innerHTML = /*HTML*/ `
+
+            <button onclick="addNumber()">+</button>
+            <button onclick="subtractNumber()">-</button>
+            <button onclick="multiplyNumber()">x2</button>
+            <button onclick="divideNumber()">/2</button>
+
+            <p>${number}</p>
+        `
+        }
+
+        function addNumber() {
+            number++;
+            updateView()
+        }
+
+        function subtractNumber() {
+            number--;
+            updateView()
+        }
+
+        
+        function multiplyNumber() {
+            number *= 2;
+            updateView()
+        }
+
+        
+        function divideNumber() {
+            number /= 2;
+            updateView()
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
