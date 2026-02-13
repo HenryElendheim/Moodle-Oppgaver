@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krokodille Spillet</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+
+
+
+
+    <script>
+        const app = document.getElementById("app");
+
+        let n1 = 0;
+        let n2 = 0;
+        let points = 0;
+        let highScore = Number(localStorage.getItem("highScore")) || 0;
+
+
+        function updateView() {
+            app.innerHTML = /*HTML*/ `   
+                <h1>Krokodille Spillet</h1>
+                <span id="tall1" class="numL">1</span>
+                <button onclick="btnClicked('=')">=</button>
+                <button onclick="btnClicked('>')">></button>
+                <button  onclick="btnClicked('<')"><</button>
+                <span id="tall2" class="numR">2</span>
+
+                <p id="textDiv"></p>
+                <p id="pointboard">Points: ${points}</p>
+                <p id="scoreboard">Highscore: ${highScore}</p>
+
+                <button onclick="reset()">Reset</button>
+                `;
+
+            rng();
+        }
+        updateView()
+
+
+        function rng() {
+            n1 = Math.floor(Math.random() * 10) + 1; // +1 gjør så det laveste tallet blir 1 istedenfor 0
+            n2 = Math.floor(Math.random() * 10) + 1;
+
+            tall1.textContent = n1;
+            tall2.textContent = n2;
+        }
+
+
+        function btnClicked(symbol) {
+            let correct = false;
+
+            if (n1 == n2 && symbol == '=') correct = true;
+            else if (n1 > n2 && symbol == '>') correct = true;
+            else if (n1 < n2 && symbol == '<') correct = true;
+            else correct = false;
+
+            if (correct) {
+                textDiv.textContent = "Correct";
+                console.log(correct);
+                points++;
+
+                updateView();
+            } else {
+                textDiv.textContent = "Incorrect";
+                console.log(correct);
+                savePointsToHS(points);
+                updateView();
+            }
+        }
+
+        function savePointsToHS(pointsRecieved) {
+            if (points > highScore) {
+                highScore = points;
+                localStorage.setItem("highScore", highScore);
+            }
+            console.log(highScore)
+            points = 0;
+        }
+
+
+
+        function reset() {
+            localStorage.clear();
+            location.reload();
+        }
+
+    </script>
+
+
+</body>
+
+</html>

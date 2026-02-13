@@ -5,41 +5,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrafikkLys</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
 
     <div id="app"></div>
 
-    
 
     <script>
         const html = document.getElementById("app");
 
         function updateView() {
             html.innerHTML = /*HTML*/ `
-                
-            <button onclick="changeColor('red',100,100)">red</button>
-            <button onclick="changeColor('blue',100,200)">blue</button>
+
+            <button onclick="changeColor('red')">red</button>
+            <button onclick="changeColor('yellow')">yellow</button>
+            <button onclick="changeColor('green')">green</button>
+            <button onclick="trafikklysOn()">Trafikklys</button>
+            <button onclick="reset()">Reset</button>
+            <br><br><br>
+            <div style="background-color: grey; width: 150px; height: 150px; border-radius: 300px;" id="bgColorR"></div>
             <br>
-            <p>Write any color you want:</p>
-            <input id="customColor" onchange="changeColor(this.value,100,100)">
+            <div style="background-color: grey; width: 150px; height: 150px; border-radius: 300px;" id="bgColorY"></div>
             <br>
-            <br>
-            <div id="bgColor"></div>
+            <div style="background-color: grey; width: 150px; height: 150px; border-radius: 300px;" id="bgColorG"></div>
                 
         `
         }
         updateView()
 
+
+
+        function changeColor(newcolor) {
+            if (newcolor == 'red') {
+                bgColorR.innerHTML = /*html*/ `
+            <div style="background-color: ${newcolor}; width: 150px; height: 150px; border-radius: 300px;"></div>
+            `
+                console.log("Color changed to red")
+            } else if (newcolor == 'yellow') {
+                bgColorY.innerHTML = /*html*/ `
+            <div style="background-color: ${newcolor}; width: 150px; height: 150px; border-radius: 300px;"></div>
+            `
+                console.log("Color changed to yellow")
+            } else {
+                bgColorG.innerHTML = /*html*/ `
+            <div style="background-color: ${newcolor}; width: 150px; height: 150px; border-radius: 300px;"></div>
+            `
+                console.log("Color changed to green")
+            }
+        }
+
+
+
+        function trafikklysOn() {
+            setTimeout(() => {
+                changeColor('red')
+            }, 1000)
+            setTimeout(() => {
+                changeColor('yellow')
+            }, 3000)
+            setTimeout(() => {
+                changeColor('green')
+            }, 5000)
+        }
+
         
 
-        function changeColor(newcolor,width,height,) {
-            bgColor.innerHTML = /*html*/ `
-            <div style="background-color: ${newcolor}; width: ${width}%; height: ${height}px;"></div>
+        function reset() {
+            bgColorR.innerHTML = /*html*/ `
+            <div style="background-color: grey; width: 150px; height: 150px; border-radius: 300px;"></div>
             `
-            console.log("Color changed")
+            bgColorY.innerHTML = /*html*/ `
+            <div style="background-color: grey; width: 150px; height: 150px; border-radius: 300px;"></div>
+            `
+            bgColorG.innerHTML = /*html*/ `
+            <div style="background-color: grey; width: 150px; height: 150px; border-radius: 300px;"></div>
+            `
         }
+
+
+
 
     </script>
 

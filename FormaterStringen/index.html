@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatering av Strengen</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+
+
+    <script>
+        const app = document.getElementById("app");
+
+        let name = ''
+
+        function updateView() {
+            app.innerHTML = /*HTML*/ `
+                <h1 id="header">First letter capitalizer 3000</h1>
+                <input type="text" name="" id="nameSet" onchange="nameChange(this.value)" placeholder="Name">
+                <p id="responseText"></p>
+
+            `;
+            responseTextFunc()
+        }
+        updateView()
+
+        function nameChange(newName) {
+            name = newName;
+            updateView()
+        }
+
+
+        function responseTextFunc() {
+            if (name == '') responseText.innerHTML = /*HTML*/ `Hello! What is your name?`;
+            else responseText.innerHTML = /*HTML*/ `Nice to meet you, ${capFirstLetter(name)}!`;
+        }
+
+        function capFirstLetter(string) {
+            if (!string) return '';
+            return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+        }
+
+
+    </script>
+</body>
+
+</html>
