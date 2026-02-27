@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For-Løkke Med String</title>
+</head>
+
+<body>
+    <!-- Oppgave:
+        Lag en funksjon som teller opp antall vokaler i en string ved hjelp av en for-løkke
+        Vokaler: a, e, i, o, u, y, æ, ø, å
+        Bruk en variabel for hver av vokalene feks let aCounter  = 0 som plusses oppover dersom du finner bokstaven i tekststringen
+
+        +
+
+        Oppgave 2:
+        Lag en funksjon som tar input fra brukeren og reverserer teksten ved hjelp av en for-løkke
+     -->
+
+    <div id="app"></div>
+    <script>
+        const app = document.getElementById("app");
+        const vokaler = [
+            "a",
+            "e",
+            "i",
+            "o",
+            "u",
+            "y",
+            "æ",
+            "ø",
+            "å"
+        ];
+
+        let vokalerCounter = 0;
+        let customText = '';
+        let vokalText = 'Antall vokaler brukt';
+        let text = '';
+
+
+
+        function updateView() {
+            app.innerHTML = /*HTML*/ `
+            
+            
+            <input id="inputID" placeholder="Skriv her" onchange="printLetters(this.value)">
+            <div id="lettersDiv">${text}</div>
+            <div id="vokalID">${vokalText} | ${vokalerCounter}</div>
+            `;
+        }
+        updateView();
+
+
+
+        function printLetters(textInput) {
+            text = ''
+            vokalerCounter = 0;
+
+            for (let i = 0; i < textInput.length; i++) {
+                let sum = text += textInput.charAt(i);
+                console.log(sum)
+                for (let j = 0; j < vokaler.length; j++) {
+                    if (vokaler[j] == textInput[i].toLowerCase()) {
+                        vokalerCounter++;
+                        console.log("Vokal")
+                    }
+                }
+            }
+            updateView();
+        }
+    </script>
+</body>
+
+</html>

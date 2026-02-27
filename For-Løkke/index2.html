@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For-Løkke Oppgave (2 gange tabellen)</title>
+</head>
+
+<body>
+    <!-- Oppgave:
+        Bruk en for-løkke til å printe ut 2-gangen
+        resultatet bør da liste ut tallene:
+        2,4,6,8,10,12,14,16,18,20 
+    -->
+
+    <div id="app"></div>
+    <script>
+        const app = document.getElementById("app");
+
+        let n1 = 0;
+        let n2 = 2;
+
+
+        function updateView() {
+            app.innerHTML = /*HTML*/ `
+            
+            <button onclick="printNumbers()">Print the 2 times table</button>
+            <div id="numbersDiv"></div>
+            `;
+        }
+        updateView()
+
+
+        function printNumbers() {
+            let stopValue = 10; // stops loop when it hits this value
+            for (let i = 1; i <= stopValue; i++) {
+                let sum = n1 += n2;
+
+                numbersDiv.innerHTML += /*HTML*/ `
+               <li>${sum}</li>
+               `;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For-Løkke</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+
+
+    <script>
+        const app = document.getElementById("app");
+
+
+        function updateView() {
+            app.innerHTML = /*HTML*/ `
+            
+            <button onclick="printNumbers()">Print Numbers</button>
+            <div id="numbersDiv"></div>
+            `;
+        }
+        updateView()
+
+
+
+        function printNumbers() {
+            let stopValue = 10; // Makes it so the for loop stops when the value of the loop hits 10
+            for(let i = 1; i <= stopValue; i++) {
+               numbersDiv.innerHTML += /*HTML*/ `
+               <li>${i}</li>
+               `; 
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

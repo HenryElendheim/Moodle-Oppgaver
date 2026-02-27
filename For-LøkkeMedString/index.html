@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For-Løkke Med String</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+
+
+    <script>
+        const app = document.getElementById("app");
+        let customText = '';
+
+
+
+        function updateView() {
+            app.innerHTML = /*HTML*/ `
+            
+            <input id="inputID" placeholder="Custom text here" onchange="printLetters(this.value)">
+            <div id="lettersDiv"></div>
+            `;
+        }
+        updateView()
+
+
+
+        function printLetters(textInput) {
+            let text = ''
+            for(let i = 0; i <= textInput.length; i++) {
+                text += textInput.charAt(i);
+            }
+            lettersDiv.innerHTML = text;
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>While-Løkke</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+
+    <script>
+        const app = document.getElementById("app");
+        let number = 1;
+        let maxNumber = 100;
+        let textVar = 'Hello World'
+
+
+        function updateView() {
+            app.innerHTML = /*HTML*/ `
+            
+            <input placeholder="Alter the maximum number" onchange="maxNumberChange(this.value)">
+            <button id="multiplyID" onclick="multiplyByTwo()">x2 until ${maxNumber}</button>
+            <div id="numbersDiv"></div>
+
+            <input placeholder="Custom text" onchange="customTextChange(this.value)">
+            <button id="textUpdateID" onclick="textUpdate()">Show text</button>
+            <button id="textUpdateID" onclick="textFirstWord()">Show first word only</button>
+            <div id="textDiv"></div>
+            `;
+        }
+        updateView()
+
+
+        function maxNumberChange(newMaxNumber) {
+            maxNumber = newMaxNumber;
+            multiplyID.innerHTML = /*HTML*/ `
+            <button id="multiplyID" onclick="multiplyByTwo()">x2 until ${maxNumber}</button>
+            `;
+        }
+
+
+        function multiplyByTwo() {
+            while (number <= maxNumber) {
+                number *= 2;
+                numbersDiv.innerHTML += number + '<br>'
+            }
+        }
+
+
+        function customTextChange(newText) {
+            textVar = newText;
+        }
+
+
+        function textUpdate() {
+            textDiv.innerHTML = /*HTML*/ `${textVar}`;
+        }
+
+        
+        function textFirstWord() {
+            let seperator = '';
+            let firstWord = '';
+            index = 0;
+            
+            while(seperator !== ' ') {
+                if(textVar.charAt(index) === ' ') {
+                    seperator = ' ';
+                }
+                firstWord += textVar.charAt(index);
+                index++;
+                textDiv.innerHTML = firstWord;
+            }
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This - Oppgave</title>
+</head>
+
+<body>
+    <!-- Oppgave: 
+        Lag et tekstfelt og et "tastatur" av forskjellige knapper du kan trykke på. 
+        Oppdater tekstfeltet til å vise frem hvilke knapper du har trykt på ved å bruke variabler, 
+        this og funksjon med parameter 
+    -->
+    <div id="app"></div>
+
+
+    <script>
+        const app = document.getElementById("app");
+
+        let lastBtnPressed = '';
+
+        function updateView() {
+            app.innerHTML = /*HTML*/ `
+            
+            <button onclick="buttonPressed(this)">1</button>
+            <button onclick="buttonPressed(this)">2</button>
+            <button onclick="buttonPressed(this)">3</button>
+            <button onclick="buttonPressed(this)">4</button>
+            <button onclick="buttonPressed(this)">5</button>
+
+            <div>${lastBtnPressed}</div>
+            `;
+        }
+        updateView()
+
+
+        function buttonPressed(recieved) {
+            lastBtnPressed = recieved.innerHTML; // Gets the whole line of code, but the .innerHTML makes it only show the text between the button.
+            updateView()
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays + For-Loops</title>
+</head>
+<body>
+
+    <div id="app"></div>
+
+
+    <script>
+        const app = document.getElementById("app");
+        const pocketStuff = [
+            "hat",
+            "pencil",
+            "dinosaur",
+            "showercap",
+            "piece of tape",
+        ];
+
+
+        function updateView() {
+            let html = ``;
+            html += /*HTML*/ `
+            <button onclick="viewPockets()">View pockets</button>
+            `;
+            app.innerHTML = html;
+        }
+        updateView()
+
+        
+        function viewPockets() {
+            for(let i = 0; i < pocketStuff.length; i++) {
+            let html = ``;
+            html += /*HTML*/ `
+            <p>Runde ${i} viser ${pocketStuff[i]}</p>
+            `;
+            app.innerHTML += html;
+            }
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Tester</title>
+    <style>
+        body {
+            background-color: rgb(73, 73, 73);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+
+    <script>
+        const app = document.getElementById("app");
+        let text = '';
+
+
+        function updateView() {
+            app.innerHTML = /*HTML*/ `
+                <button onclick="functionName('human')">hello human</button>
+                <button onclick="functionName('being')">hello being</button>
+                <button onclick="functionName('person')">hello person</button>
+                <br>
+                <div id="textDiv">Pressed: ${text}</div>
+            `;
+        }
+        updateView()
+
+        function functionName(value) {
+            if (value === "human") {
+                text = "hello human";
+            }
+            else if (value === "being") {
+                text = "hello being";
+            }
+            else {
+                text = "hello person";
+            }
+
+            updateView();
+        }
+
+
+
+    </script>
+</body>
+
+</html>

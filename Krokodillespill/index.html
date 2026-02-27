@@ -8,12 +8,32 @@
 </head>
 
 <body>
+    <!-- Oppgave - Krokodillespill
+    Lag krokodille-spillet! På bildet ser vi under hvordan det skal se ut.
+
+    krokkod
+    Når du trykker reset-knappen genereres to random tall mellom 1-10
+
+    Mellom tallene, må du ha et input felt. Her er det meningen at man skal sammenligne tallene og 
+    skrive riktig operator!
+
+    Når man trykker submit - må man sjekke at man har skrevet inn riktig tegn i input-feltet og 
+    oppdatere poengsummen. Riktig svar plusser på 1 poeng, feil svar trekker fra et poeng.
+
+    Bruk variabler, onclick, if/else og random for å løse oppgaven! ;) Lykke til!
+
+    
+    Ex:
+    Dersom det første tallet er større enn det andre, må man skrive inn ">" for å få riktig svar, 
+    dersom det første tallet er mindre enn må man skrive "<" og dersom tallene er like bruker man "="
+
+    1 (inputfelt) 7 (submit btn) points: 0
+
+    -------
+
+    1 < 7 skriver inn "mindre enn" - trykker submit så vil poengscore oppdateres points: 1 
+    -->
     <div id="app"></div>
-
-
-
-
-
     <script>
         const app = document.getElementById("app");
 
@@ -22,26 +42,30 @@
         let points = 0;
         let highScore = Number(localStorage.getItem("highScore")) || 0;
 
+        let symbol = '';
+
 
         function updateView() {
             app.innerHTML = /*HTML*/ `   
                 <h1>Krokodille Spillet</h1>
                 <span id="tall1" class="numL">1</span>
-                <button onclick="btnClicked('=')">=</button>
-                <button onclick="btnClicked('>')">></button>
-                <button  onclick="btnClicked('<')"><</button>
+                <input onchange="inputSender(this.value)">
                 <span id="tall2" class="numR">2</span>
 
                 <p id="textDiv"></p>
                 <p id="pointboard">Points: ${points}</p>
                 <p id="scoreboard">Highscore: ${highScore}</p>
 
+                <button onclick="btnClicked()">Submit</button>
                 <button onclick="reset()">Reset</button>
                 `;
 
             rng();
         }
         updateView()
+
+
+
 
 
         function rng() {
@@ -53,7 +77,12 @@
         }
 
 
-        function btnClicked(symbol) {
+        function inputSender(symbolSent) {
+            symbol = symbolSent
+        }
+
+
+        function btnClicked() {
             let correct = false;
 
             if (n1 == n2 && symbol == '=') correct = true;
@@ -75,6 +104,7 @@
             }
         }
 
+
         function savePointsToHS(pointsRecieved) {
             if (points > highScore) {
                 highScore = points;
@@ -83,7 +113,6 @@
             console.log(highScore)
             points = 0;
         }
-
 
 
         function reset() {

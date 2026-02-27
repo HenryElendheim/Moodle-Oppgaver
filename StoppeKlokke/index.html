@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoppeklokke</title>
+</head>
+
+<body>
+    <!-- Oppgave - Stoppeklokke
+    Lag en stoppeklokke.
+
+    Begynn med å lage én knapp som setter i gang tiden - tiden lagres i en variabel,
+    og vises fram i nettleseren.
+
+    Lag så en knapp for å ta "rundetider" - altså at du lagrer og viser tiden i dét du trykker på pauseknappen,
+    samtidig som tidtakeren stiller seg tilbake på 0 og begynner på nytt.
+
+    Lag en knapp for å blanke ut og stoppe klokka og timeren.
+
+    Ting som kan være lurt å sjekke ut: SetTimeout() og SetInterval()
+
+    Husk at dette er en oppgave hvor du skal trene på å bruke variabler! 
+-->
+    <div id="app"></div>
+
+
+
+
+    <script>
+        const app = document.getElementById("app");
+
+        let seconds = 0;
+        let minutes = 0;
+        let hours = 0;
+
+        let timer; // declares variable, currently its undefined
+
+
+        function updateView() {
+            app.innerHTML = /*HTML*/ `
+            <h1>Timer</h1>
+            
+                <p id="display">00:00:00</p>
+                <p id="timeStampID"></p>
+
+                <button onclick="startTimer()">Start</button>
+                <button onclick="pauseTimer()">Pause</button>
+                <button onclick="stopTimer()">Stop</button>
+            `;
+        }
+        updateView()
+
+
+        function startTimer() {
+            if (!timer) {
+                timer = setInterval(updateTime, 1000) //now the variable holds the setInterval() value
+            }
+        }
+
+
+
+        function pauseTimer() {
+            clearInterval(timer);
+            timer = null;
+        }
+
+
+        function stopTimer() {
+            clearInterval(timer);
+            timer = null;
+            timeStamp();
+            clearTimer();
+        }
+
+
+        function updateTime() {
+            seconds++;
+            if (seconds >= 60) {
+                minutes++;
+                seconds = 0;
+            }
+            if (minutes >= 60) {
+                hours++
+                minutes = 0;
+            }
+
+            // The questionmark is an if-statement in 1 symbol. 
+            // So if the variable is below 10 it adds a 0 in front
+            // Basically it makes it say "01" instead of just "1"
+            let s = seconds < 10 ? "0" + seconds : seconds;
+            let m = minutes < 10 ? "0" + minutes : minutes;
+            let h = hours < 10 ? "0" + hours : hours;
+
+            // updates the view making it show the new time in order.
+            // im doing this via using the display ID in the <p> in the updateView()
+            display.innerHTML = h + ":" + m + ":" + s;
+        }
+
+
+        function timeStamp() {
+            let s = seconds < 10 ? "0" + seconds : seconds;
+            let m = minutes < 10 ? "0" + minutes : minutes;
+            let h = hours < 10 ? "0" + hours : hours;
+
+            timeStampID.innerHTML += h + ":" + m + ":" + s + `<br>`;
+        }
+
+
+        
+        function clearTimer() {
+            seconds = 0, minutes = 0, hours = 0;
+            display.innerHTML = "00:00:00";
+        }
+
+
+    </script>
+</body>
+
+</html>

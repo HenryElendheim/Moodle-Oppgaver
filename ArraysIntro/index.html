@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays Intro</title>
+</head>
+<body>
+    <h1>Check the console</h1>
+    <script>
+
+        var people = [
+            "Henry", // 0
+            "Remy", // 1
+            "Tim", // 2
+            "Nicklas", // 3
+        ];
+
+        // Call the variable via typing this: people
+
+        // Call specific person via: people[0]
+        // The code above would then show the name "Henry"
+
+
+        console.log(people);
+        console.log("All people");
+
+
+        // add another person
+        people.push("Kay");  // 4th index
+
+
+        console.log(people);
+        console.log("Added a new person");
+
+        // Remove person
+        people.splice(4); // removes the 4th index
+
+
+        console.log(people);
+        console.log("Removed the 4th index (5th person)");
+
+
+        // removes the last thing in the array's index
+        people.pop();
+
+        console.log(people)
+        console.log("Removed the last person in the array")
+        console.log("")
+        console.log("You can show the list of people by typing: people")
+        console.log("You can add more people by typing: people.push('personName')")
+    </script>
+</body>
+</html>

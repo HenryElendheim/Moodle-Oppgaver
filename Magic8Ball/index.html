@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic 8 Ball</title>
+    <style>
+        body {
+            background-color: rgb(67, 49, 148);
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            border: solid black;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        button:active {
+            background-color: rgb(52, 29, 105);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Oppgave - Magic 8 Ball
+    Hva er Magic 8 Ball?
+
+    Magic 8 Ball er en plastkule, laget for å se ut som en overdimensjonert åtteball, som brukes til å spå eller søke råd.
+
+    8ball
+    Lag din egen Magic 8 Ball der man får et tilfeldig råd av den magiske, overdimensjonerte åtteballen.
+
+    Ekstra: Gjør det slik at man aldri kan få det samme rådet etter hverandre.
+    Bruk MVC, variabler, arrays og random for å løse oppgaven.
+-->
+    <div id="app"></div>
+
+
+
+    <script>
+        const app = document.getElementById("app");
+
+
+        let advice = [
+            "Stop applying standards to yourself which you can never reach.",
+            "If you tell yourself you'll never be great. You won't be. Not because you aren't, but because the hate will crush your will to try.",
+            "Not being perfect don't make you worthless",
+            "Growth feels uncomfortable because it's real.",
+            "Self love can be scary when you feel comfortable in your self hatred.",
+            "Showing up is more than half the battle most days.",
+            "It's not worth taking your deepest secret to the grave.",
+            "Do everything in your power so you can look back on your life and be proud of your achievements.",
+            "Being hard on yourself doesn't fix you.",
+            "You're allowed to take a day off.",
+            "Crying doesn't make you weak. Regardless of gender, you are allowed to be human.",
+            "You don't have to sentence yourself to life in misery. You have a choice.",
+            "One of the hardest things to accept. Is that there's no love like your own.",
+            "Punishing yourself doesn't improve you. It only makes you miserable.",
+            "Who made you the judge, jury and executioner of your own worth?",
+            "Not having a plan for life is the most healthy way to live. Plans, more often than not. Don't go to plan.",
+            "If something doesn't go the way you want. Make the best of it in the moment.",
+            "A few real friends will always be worth more than 100 fake friends.",
+            "Your mindset, no matter how stuck in it you are. You can change it. All you gotta do is try every single day. Regardless of how hard it is.",
+            "Pushing everyone away. That's why you feel so lonely. Try to let people in.",
+        ];
+
+
+        let noAdviceLeft = [
+            "",
+            "Idk bruh I ain't got much more advice to give :|",
+            "Bro.. I legit just said I ain't got more",
+            ":|",
+            ":/",
+            ":(",
+            ">:(",
+            "Alright...",
+            "You want advice?",
+            "Forgive yourself.",
+            "No seriously.",
+            "It's the first proper step towards healing.",
+            "I know its hard, but it's the only way to start liking yourself.",
+            "I'm not saying it has to be a flipped switch, cause it ain't.",
+            "Who you were. That person is not who you are now.",
+            "Even if you relapse, it doesn't define you.",
+            "What does define you, is how you bounce back.",
+            "Falling into old habits is part of the healing process.",
+            "Your brain feels unsafe in the new environment. Then the old habits come back in.",
+            "You feel the pull still. But you can choose not to do it.",
+            "People who have been clean for 20 years still feel that pull sometimes.",
+            "The only way for you to move past it all. Is to keep going.",
+            "If you're confused on where to go to get help.",
+            "Going to therapy is both the best and hardest choice to make.",
+            "Even just opening up to a friend is a good first step.",
+            "Life isn't easy, and it's okay to lean on others every once in a while.",
+            "And if no one has told you this today.",
+            "I'm glad you're still here.",
+            "Life gets better.",
+            "Trust me. I've been there too.",
+        ];
+
+
+        let adviceIndex = 0;
+        let noAdviceIndex = 0;
+        let currentAdvice = "";
+
+
+
+
+
+        function updateView() {
+            app.innerHTML = /*HTML*/ `
+            <button onclick="giveAdvice()">8 Ball</button>
+            <p>${currentAdvice}</p>
+            `;
+        }
+        updateView();
+
+
+
+
+
+        function rng() {
+            return Math.floor(Math.random() * advice.length);
+        }
+
+
+        function giveAdvice() {
+            if (advice.length === 0) {
+                noAdviceIndex++;
+                currentAdvice = noAdviceLeft[noAdviceIndex];
+                if (noAdviceIndex >= noAdviceLeft.length) {
+                    currentAdvice = "";
+                }
+            } else {
+                adviceIndex = rng();
+                currentAdvice = advice[adviceIndex];
+                advice.splice(adviceIndex, 1)
+            }
+            updateView()
+        }
+    </script>
+</body>
+
+</html>

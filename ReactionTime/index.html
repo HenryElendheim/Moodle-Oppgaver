@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction Time</title>
+    <style>
+        body {
+            background-color: rgb(36, 37, 112);
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .gridPattern {
+            display: grid;
+            gap: 1vh;
+            grid-template-columns: repeat(5, 10vh);
+        }
+
+        .circleClass {
+            height: 10vh;
+            width: 10vh;
+            border-radius: 50%;
+            background-color: rgb(17, 0, 80);
+        }
+
+        .lightOn {
+            background-color: rgb(151, 106, 255);
+            cursor: pointer;
+        }
+
+        .lightOn:active {
+            background-color: rgb(219, 187, 255);
+        }
+
+        .lightOff:active {
+            background-color: rgb(80, 0, 0);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Oppgave: Reaksjonstid
+        NB; Vanskelig oppgave
+
+        Lag en updateView()-funksjon som lager 25 sirkler ved hjelp av
+        25 DIV-er med en bakrunnsfarge du velger selv,
+        og en sirkulær ramme (border-radius: 50%). Sett bredde og høyde til noe passende.
+        Vis dem i 5 rader a 5 sirkler. Lag en egen css class for dette, kall den for eksempel "lamp". 
+
+        Lag en css class "lightOn" med gul farge.
+        Lag en kontroller-funksjon som endrer en variabel selectedLampIndex i modellen til et tilfeldig tall
+        under 25 og så kaller updateView().
+        Endre den slik at riktig lampe lyser opp.
+        Sørg for å kalle kontroller-funksjonen når siden laster. 
+
+        Legg til en onclick kun på den knappen som lyser
+        og koble den til en kontroller-funksjonen du lagde i forrige punkt. 
+
+        Forsøk å måle og vise tiden det tok fra en lampe lyste opp til brukeren trykket på den. 
+        Her er noen hint, men finn ut selv hvor i koden du legger dette:
+
+        var startTime = new Date().getTime();
+        var finishTime = new Date().getTime();
+        var spentMilliseconds = Math.floor(finishTime - startTime);
+        var spentSeconds = spentMilliseconds / 1000; 
+    -->
+    <div id="app"></div>
+    <script>
+        const app = document.getElementById("app");
+
+        let circles = "";
+        let selectedLampIndex = 0;
+        let timerText = '0';
+        let points = 0;
+
+        var startTime;
+        var finishTime = new Date().getTime();
+        var spentMilliseconds = Math.floor(finishTime - startTime);
+        var spentSeconds = spentMilliseconds / 1000;
+
+
+
+        function updateView() {
+            circles = "";
+            let random = rng();
+
+
+            for (let i = 0; i < 25; i++) {
+                if (random == i) {
+                    circles += /*HTML*/ `<div onclick="lampClicked(event)" class="circleClass lightOn"></div>`;
+                } else {
+                    circles += /*HTML*/ `<div onclick="nonLampClicked(event)" class="circleClass lightOff"></div>`;
+                }
+            }
+
+            //strating timer
+            startTime = new Date().getTime();
+
+            app.innerHTML = /*HTML*/ `
+            <h2>Reaction Time Tester</h2>
+            <div class="gridPattern">
+                ${circles}
+            </div>
+            <p>Time: ${timerText}s</p>
+            <p>Points: ${points}</p>
+            `;
+        }
+        updateView()
+
+
+
+
+
+
+        function rng() {
+            return Math.floor(Math.random() * 25);
+        }
+
+        function lampClicked(event) {
+            console.log("Lamp Pressed")
+
+            finishTime = new Date().getTime();
+            spentMilliseconds = Math.floor(finishTime - startTime);
+            timerText = spentSeconds = spentMilliseconds / 1000;
+
+            if (timerText <= 0.4) {
+                points += 5;
+            } else if (timerText <= 0.5) {
+                points += 2;
+            } else {
+                points++;
+            }
+
+
+            updateView();
+        }
+
+
+        function nonLampClicked(event) {
+            console.log("Non Lamp Pressed")
+            finishTime = new Date().getTime();
+            spentMilliseconds = Math.floor(finishTime - startTime);
+            timerText = spentSeconds = spentMilliseconds / 1000;
+            points--;
+            updateView();
+        }
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
