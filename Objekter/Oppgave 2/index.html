@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 2 - Kolonner osv</title>
+    <style>
+        body {
+            background-color: rgb(47, 39, 122);
+            color: white;
+        }
+
+        table,
+        tr,
+        td,
+        th {
+            border: 2px solid rgba(122, 108, 252, 0.247);
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            padding: 4px;
+        }
+
+        th {
+            background-color: rgb(25, 18, 95);
+        }
+
+        tr:nth-child(even) {
+            background-color: rgb(29, 28, 88);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Oppgaver
+        1. Legg til en ny kolonne for person. Må kunne angis når man lager ny oppgave og må kunne redigeres
+
+        2. Legg til en ny kolonne for frist. Bruk input-tag med type="date". 
+        Konvertering til visningsformat: new Date("2019-02-13").toLocaleDateString().
+        For å lage en dato på riktig format til 
+        <input type="date", bruk new Date().toISOString().substring(0,10)
+
+        3. Legg til en ny kolonne for "gjort dato" som fylles ut automatisk
+        når man trykker på checkboxen for at det er gjort.
+    -->
+
+    <table id="app"></table>
+    <br>
+    <input onchange="addTask(this.value)" id="taskDesc" type="text" placeholder="Hva er oppgaven?">
+    <br>
+    <br>
+    <input onchange="addPerson(this.value)" id="nameInput" type="text" placeholder="Hvem gjør oppgaven?">
+    <br>
+    <br>
+    <input onchange="saveDueDate(this.value)" id="dueDateInput" type="date">
+    <br>
+    <br>
+    <button onclick="addTaskAllInfo()">Legg til oppgaven</button>
+
+
+    <script>
+        //Model
+        const app = document.getElementById("app");
+
+
+        const allInfo = [
+            {
+                desc: 'Handle til middag', isDone: false, name: 'Henry', due: new Date().toISOString().substring(0, 10), done: null,
+            },
+            {
+                desc: 'Lage middag', isDone: false, name: 'Johan', due: new Date().toISOString().substring(0, 10), done: null,
+            },
+        ];
+
+        let newTasks = {
+            desc: "", isDone: false, name: "", due: null, done: null,
+        };
+
+        var taskDescInput = document.getElementById("taskDesc");
+
+        let dueDateSavedVar = null;
+        
+
+
+
+
+        //View
+        function updateView() {
+            let html = /*HTML*/ `     
+            <tr>
+                <th>Oppgave</th>
+                <th>Gjort</th>
+                <th>Redigering</th>
+
+                <th>Person</th>
+                <th>Frist</th>
+                <th>Gjort Dato</th>
+            </tr>
+            `;
+
+            for (let i = 0; i < allInfo.length; i++) {
+                html += createRows(i); //Sends the index (i) to createRows()
+            }
+            app.innerHTML = html;
+        }
+        updateView();
+
+
+        function createRows(i) { //Recieves the index from the for loop in updateView()
+            const checkedTask = allInfo.isDone ? 'checked="checked"' : ''; //Checks if the variable isDone = true. If yes, then it checks the checkbox. Else, it doesnt.
+            if (!allInfo[i].editMode) {
+                return /*HTML*/ `
+                <tr>
+                    <td>${allInfo[i].desc}</td>
+                    <td><input onchange="changeIsDone(this, ${i})" type="checkbox" ${checkedTask}></td>
+                    <td>
+                        <button onclick="removeTask(${i})">Slett</button>
+                        <button onclick="editTask(${i})">Rediger</button>
+                    </td>
+                    <td>${allInfo[i].name}</td>
+                    <td>${allInfo[i].due}</td>
+                    <td>${allInfo[i].done}</td>
+                </tr>
+                
+                `;
+            } else {
+                return /*HTML*/ `
+                <tr>
+                    <td><input id="editDesc${i}" type="text" value="${allInfo.desc}"></td>
+                    <td><input onchange="changeIsDone(this, ${i})" type="checkbox" ${checkedTask}></td>
+                    <td>
+                        <button onclick="updateAll(${i})">Lagre</button>
+                    </td>
+                    <td><input id="editName${i}" type="text" value="${allInfo.name}"></td>
+                    <td><input id="editDesc" value="${allInfo.due}" type="date"></td>
+                    <td>${allInfo[i].done}</td>
+                </tr>
+                `;
+            };
+        };
+
+
+
+
+
+        //Controller        
+        function changeIsDone(checkbox, index) {
+            allInfo[index].isDone = checkbox.checked;
+            if (allInfo[index].isDone == true) { // just set it to the first index to test for now
+                return allInfo[index].done;
+            } else {
+                return allInfo[index].done = "Not done yet";
+            };
+            updateView();
+        }
+
+
+        function removeTask(index) {
+            allInfo.splice(index, 1);
+            updateView();
+        };
+
+
+        function editTask(index) {
+            allInfo[index].editMode = true; // legger til et nytt objet i listen og setter den til sann
+            updateView();
+        };
+
+
+        function updateAll(index) {
+            const idDesc = `editDesc${index}`;
+            const inputTagDesc = document.getElementById(idDesc);
+
+            const idName = `editName${index}`;
+            const inputTagName = document.getElementById(idName);
+
+            const idDue = `editDue${index}`;
+            const inputTagDue = document.getElementById(idDue);
+
+
+
+            allInfo[index].name = inputTagName.value;
+            allInfo[index].desc = inputTagDesc.value;
+            allInfo[index].editMode = false; // gjør den usann
+
+            updateView();
+        };
+
+
+        function addTask(sentTask) {
+            newTasks.desc = sentTask;
+            console.log("addedTask");
+            taskDescInput.value = '';
+        };
+
+
+        function addPerson(newName) {
+            newTasks.name = newName;
+            console.log("Added person");
+            nameInput.value = '';
+        };
+
+
+        function saveDueDate(dueDateSent) {
+            console.log(dueDateSent)
+            newTasks.due = dueDateSent;
+        };
+
+
+        function addTaskAllInfo() {
+            allInfo.push(newTasks)
+            newTasks = { desc: "", isDone: false, name: "", due: null, done: null, }
+            console.log(allInfo)
+            updateView()
+        };
+    </script>
+</body>
+
+</html>

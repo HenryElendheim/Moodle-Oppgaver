@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variabel Forklaring</title>
+</head>
+<body>
+    <div id="app"></div> <!-- Lager en divisjon med en ID som heter "app"-->
+
+
+
+    <script>
+        const app = document.getElementById("app"); // vi lager en const som heter app. Denne henter divisjonen som har ID-en "app"
+
+        let navn = "Test"; // her lager vi en variabel og setter verdien til variabelen til "Test"
+
+        
+        function updateView() { //Her tegner vi opp det som vises på skjermen
+            app.innerHTML = /*HTML*/ `
+                
+        <input onchange="byttNavn(this.value)" type="text" name="" id="">
+            <!-- 
+            her har vi en input som sender med info til funksjonen vi kaller på. 
+            Her kaller vi på "byttNavn()" funksjonen og sender med (this.value)
+            this.value sender med informasjonen du skriver inn i inputen.
+            Den sender infoen med når du endrer på den.
+             -->
+
+        <p>Personen heter: ${navn}</p> 
+            <!-- 
+            Her har vi den variabelen vi lagde.
+            Verdien den holder blir oppdatert i funksjonen byttNavn()
+            -->
+        `;
+        }
+        updateView();
+
+
+
+        function byttNavn(nyttNavn) { // Her er byttNavn() som mottar info i (nyttNavn)
+            navn = nyttNavn; 
+            // variabelen vi kalte for navn bytter da infoen om til infoen som nyttNavn får.
+            // nyttNavn har fått informasjonen du skriver inn i inputfeltet.
+
+            updateView(); // her tegner vi opp på nytt som vil da vise den nye verdien som "navn" variabelen får
+        }
+
+    </script>
+</body>
+</html>
