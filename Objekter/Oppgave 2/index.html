@@ -65,18 +65,17 @@
         //Model
         const app = document.getElementById("app");
 
-
         const allInfo = [
             {
-                desc: 'Handle til middag', isDone: false, name: 'Henry', due: new Date().toISOString().substring(0, 10), done: null,
+                desc: 'Handle til middag', isDone: false, name: 'Henry', due: new Date().toISOString().substring(0, 10), done: "Not set yet",
             },
             {
-                desc: 'Lage middag', isDone: false, name: 'Johan', due: new Date().toISOString().substring(0, 10), done: null,
+                desc: 'Lage middag', isDone: false, name: 'Johan', due: new Date().toISOString().substring(0, 10), done: "Not set yet",
             },
         ];
 
         let newTasks = {
-            desc: "", isDone: false, name: "", due: null, done: null,
+            desc: "", isDone: false, name: "", due: null, done: "Not set yet",
         };
 
         var taskDescInput = document.getElementById("taskDesc");
@@ -110,7 +109,7 @@
 
 
         function createRows(i) { //Recieves the index from the for loop in updateView()
-            const checkedTask = allInfo.isDone ? 'checked="checked"' : ''; //Checks if the variable isDone = true. If yes, then it checks the checkbox. Else, it doesnt.
+            const checkedTask = allInfo[i].isDone ? 'checked="checked"' : ''; //Checks if the variable isDone = true. If yes, then it checks the checkbox. Else, it doesnt.
             if (!allInfo[i].editMode) {
                 return /*HTML*/ `
                 <tr>
@@ -124,18 +123,17 @@
                     <td>${allInfo[i].due}</td>
                     <td>${allInfo[i].done}</td>
                 </tr>
-                
                 `;
             } else {
                 return /*HTML*/ `
                 <tr>
-                    <td><input id="editDesc${i}" type="text" value="${allInfo.desc}"></td>
+                    <td><input id="editDesc${i}" type="text" value="${allInfo[i].desc}"></td>
                     <td><input onchange="changeIsDone(this, ${i})" type="checkbox" ${checkedTask}></td>
                     <td>
                         <button onclick="updateAll(${i})">Lagre</button>
                     </td>
-                    <td><input id="editName${i}" type="text" value="${allInfo.name}"></td>
-                    <td><input id="editDesc" value="${allInfo.due}" type="date"></td>
+                    <td><input id="editName${i}" type="text" value="${allInfo[i].name}"></td>
+                    <td><input id="editDesc" value="${allInfo[i].due}" type="date"></td>
                     <td>${allInfo[i].done}</td>
                 </tr>
                 `;
@@ -150,9 +148,9 @@
         function changeIsDone(checkbox, index) {
             allInfo[index].isDone = checkbox.checked;
             if (allInfo[index].isDone == true) { // just set it to the first index to test for now
-                return allInfo[index].done;
+                return allInfo[index].done = new Date().toISOString().substring(0, 10), console.log("Done date:", new Date().toISOString().substring(0, 10)), updateView();
             } else {
-                return allInfo[index].done = "Not done yet";
+                return allInfo[index].done = "Not set yet", updateView();;
             };
             updateView();
         }
@@ -184,6 +182,7 @@
 
             allInfo[index].name = inputTagName.value;
             allInfo[index].desc = inputTagDesc.value;
+            allInfo[index].due = inputTagDue.value;
             allInfo[index].editMode = false; // gjør den usann
 
             updateView();
