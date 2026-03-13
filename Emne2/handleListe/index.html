@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handleliste</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        button {
+            background-color: rgb(59, 37, 141);
+            color: white;
+            border-style: none;
+            padding: 10px 20px 10px;
+            cursor: pointer;
+        }
+
+        .btnX {
+            padding: 5px 10px 5px;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Oppgave:
+    Lag en web-applikasjon som skal fungere som en handleliste. 
+
+    Du skal kunne legge til varer og fjerne dem igjen,
+    og siden skal oppdatere seg dynamisk ifht når man skriver inn en ny vare. 
+    Her trenger du: 
+
+    Arrays med objekter:
+    Loops
+    MVC
+    Pass på at det fungerer stabilt også når listen blir større, 
+    og unngå at ugyldige eller tomme verdier legges til. 
+
+    Bonus:
+    Ha et tall displayed som viser antallet i listen.
+    Kunne sortere listen (eks alfabetisk)
+    Kunne lage forskjellige lister (eks mat, klær etc).  
+    -->
+    <div id="app"></div>
+    <script>
+        const model = {
+            app: {
+                app: document.getElementById("app"),
+            },
+            viewState: {
+                //Mellom lagring av data For eks: tomme variabler som du setter senere
+            },
+            data: {
+                item: [
+                    {
+                        id: 1,
+                        name: "x20 Blyanter",
+                        cost: 50,
+                        inStock: 8,
+                    },
+                    {
+                        id: 2,
+                        name: "Notatbok",
+                        cost: 90,
+                        inStock: 3,
+                    },
+                    {
+                        id: 3,
+                        name: "Blå maling",
+                        cost: 300,
+                        inStock: 20,
+                    },
+                ],
+                cart: [],
+                wallet: 500,
+                response: "",
+                isCartViewed: false,
+            },
+        };
+
+        let itemVar = model.data.item;
+        let cartVar = model.data.cart;
+
+        let name;
+        let cosst;
+        let stock;
+
+
+
+
+
+        function updateView() {
+            let html = '';
+            html += /*HTML*/ `
+            ${returnView()}
+            <input onchange="newItemNameFunc(this.value)" placeholder="Ny vare her"> <br><br>
+            <input onchange="newItemCostFunc(this.value)" type="number" placeholder="Ny vare pris her"> <br><br>
+            <input onchange="newItemAmountFunc(this.value)" type="number" placeholder="Ny vare antall her"> <br><br>
+            <button onclick="newItemBtn()">Legg til ny vare</button> <br><br>
+            `;
+            for (let i = 0; i < model.data.item.length; i++) {
+                html += /*HTML*/ `
+                <button onclick="addToCart(${i})">${itemVar[i].name} <br> ${itemVar[i].cost}kr <br> ${itemVar[i].inStock} igjen</button>
+                `;
+            }
+            html += /*HTML*/ `<p>${model.data.response}</p>`;
+            model.app.app.innerHTML = html;
+        }
+        updateView();
+
+
+        function viewCart() {
+            response = "";
+            if (!model.data.isCartViewed) {
+                let html = '';
+                html += /*HTML*/ `       
+                ${returnView()} <ol>
+                `;
+                for (let i = 0; i < cartVar.length; i++) {
+                    html += /*HTML*/ `
+                <li>${cartVar[i].name} - Pris: ${cartVar[i].cost} <button class="btnX" onclick="removeFromCart(${i})">x</button></li>
+                `;
+                }
+                html += /*HTML*/ `
+                </ol>
+                <button onclick="buyAllInCart()">Kjøp alt i handlekurv</button>
+                `;
+                model.data.isCartViewed = true;
+                model.app.app.innerHTML = html;
+            } else {
+                return model.data.isCartViewed = false, updateView();
+            }
+        }
+
+
+        function returnView() {
+            let html = '';
+            html += /*HTML*/ `
+            <button onclick="viewCart()">Antall varer i handlekurven | ${cartVar.length}</button>
+            <p>${model.data.wallet}kr | Pris: ${returnTotal()}</p>
+            `;
+            return html;
+        }
+
+
+
+
+
+        function newItemNameFunc(newItemName) {
+            name = newItemName;
+        }
+
+
+        function newItemCostFunc(newItemCost) {
+            cost = Number(newItemCost);
+        }
+
+
+        function newItemAmountFunc(newItemStock) {
+            stock = Number(newItemStock);
+        }
+
+
+        function newItemBtn() {
+            model.data.item.push({ id: rngID(), name: name, cost: cost, inStock: stock })
+            console.log(model.data.item)
+            updateView();
+        }
+
+
+        function rngID() {
+            return Math.floor(Math.random() * 10000) + 3
+        }
+
+
+        function addToCart(index) {
+            if (itemVar[index].inStock <= 0) {
+                return model.data.response = "Ikke flere igjen.", updateView();
+            } else {
+                itemVar[index].inStock--;
+                cartVar.push({ id: itemVar[index].id, name: itemVar[index].name, cost: itemVar[index].cost, inStock: itemVar[index].inStock });
+                model.data.response = "";
+                updateView();
+            }
+        }
+
+
+        function returnItemID() {
+            return model.data.item.map(element => element.id);
+        }
+
+
+        function removeFromCart(index) {
+            let cartID = cartVar[index].id;
+
+            let removeIndex = returnItemID().indexOf(cartID);
+
+            if (removeIndex !== -1) { //this makes it so if nothing is found in the array, it nullifies the ++ below. Because 1 - 1 = 0
+                itemVar[removeIndex].inStock++;
+            }
+
+
+            cartVar.splice(index, 1);
+            model.data.isCartViewed = false; //makes it so you dont get yeeted back to the shop
+            viewCart();
+        }
+
+
+        function returnTotal() {
+            let cost = 0;
+            cartVar.map(element => { cost += element.cost }) // this gets the total cost of all the items in the cart
+            return cost;
+        }
+
+
+        function buyAllInCart() {
+            if (cartVar.length == 0) {
+                //Denne er tom som betyr at ingenting skjer hvis du ikke har noe i handlekurven
+            } else {
+                let cost = returnTotal();
+                if (model.data.wallet < cost) {
+                    return model.data.response = "Ikke råd.", updateView();
+                } else {
+                    model.data.wallet -= cost;
+                    cartVar = [];
+                    model.data.response = "";
+                    model.data.isCartViewed = false;
+                }
+                updateView();
+            }
+        }
+    </script>
+</body>
+
+</html>

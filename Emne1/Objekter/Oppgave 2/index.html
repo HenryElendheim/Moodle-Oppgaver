@@ -60,6 +60,7 @@
     <br>
     <button onclick="addTaskAllInfo()">Legg til oppgaven</button>
 
+    
 
     <script>
         //Model
@@ -67,15 +68,15 @@
 
         const allInfo = [
             {
-                desc: 'Handle til middag', isDone: false, name: 'Henry', due: new Date().toISOString().substring(0, 10), done: "Not set yet",
+                desc: 'Handle til middag', isDone: false, name: 'Henry', due: new Date().toISOString().substring(0, 10), done: "Ikke gjort ferdig",
             },
             {
-                desc: 'Lage middag', isDone: false, name: 'Johan', due: new Date().toISOString().substring(0, 10), done: "Not set yet",
+                desc: 'Lage middag', isDone: false, name: 'Johan', due: new Date().toISOString().substring(0, 10), done: "Ikke gjort ferdig",
             },
         ];
 
         let newTasks = {
-            desc: "", isDone: false, name: "", due: null, done: "Not set yet",
+            desc: "", isDone: false, name: "", due: null, done: "Ikke gjort ferdig",
         };
 
         var taskDescInput = document.getElementById("taskDesc");
@@ -133,7 +134,7 @@
                         <button onclick="updateAll(${i})">Lagre</button>
                     </td>
                     <td><input id="editName${i}" type="text" value="${allInfo[i].name}"></td>
-                    <td><input id="editDesc" value="${allInfo[i].due}" type="date"></td>
+                    <td><input id="editDue" value="${allInfo[i].due}" type="date"></td>
                     <td>${allInfo[i].done}</td>
                 </tr>
                 `;
@@ -150,7 +151,7 @@
             if (allInfo[index].isDone == true) { // just set it to the first index to test for now
                 return allInfo[index].done = new Date().toISOString().substring(0, 10), console.log("Done date:", new Date().toISOString().substring(0, 10)), updateView();
             } else {
-                return allInfo[index].done = "Not set yet", updateView();;
+                return allInfo[index].done = "Ikke gjort ferdig", updateView();;
             };
             updateView();
         }
